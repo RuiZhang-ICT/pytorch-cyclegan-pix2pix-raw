@@ -16,10 +16,14 @@ if __name__ == '__main__':
     visualizer = Visualizer(opt)
     total_steps = 0
 
+    seed = 1202
+
     for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):
         epoch_start_time = time.time()
         iter_data_time = time.time()
         epoch_iter = 0
+
+        dataset.dataset.shuffle_dataset(seed) # rui
 
         for i, data in enumerate(dataset):
             iter_start_time = time.time()
@@ -31,9 +35,13 @@ if __name__ == '__main__':
             model.set_input(data)
             model.optimize_parameters()
 
-            if total_steps % opt.display_freq == 0:
-                save_result = total_steps % opt.update_html_freq == 0
-                visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+            if epoch_iter % opt.display_freq == 0:
+            #if total_steps % opt.display_freq == 0:
+                save_result = epoch_iter % opt.update_html_freq == 0
+                max_iter = dataset_size / opt.update_html_freq * opt.update_html_freq # rui 
+                visualizer.display_current_results(model.get_current_visuals(), epoch, epoch_iter, max_iter, save_result) # rui
+                #save_result = total_steps % opt.update_html_freq == 0
+                #visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
 
             if total_steps % opt.print_freq == 0:
                 losses = model.get_current_losses()

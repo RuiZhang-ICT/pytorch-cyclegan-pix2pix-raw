@@ -2,6 +2,7 @@ import torch.utils.data as data
 from PIL import Image
 import torchvision.transforms as transforms
 
+import random
 
 class BaseDataset(data.Dataset):
     def __init__(self):
@@ -19,6 +20,14 @@ class BaseDataset(data.Dataset):
 
     def __len__(self):
         return 0
+
+    # rui shuffle data
+    def shuffle_dataset(self, seed):
+        random.seed(seed)
+        random.shuffle(self.A_paths)
+        random.seed(seed+1)
+        random.shuffle(self.B_paths)
+    # rui
 
 
 def get_transform(opt):
