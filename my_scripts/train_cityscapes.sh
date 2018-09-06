@@ -1,1 +1,1 @@
-python train.py --dataroot ../datasets/cyclegan_download/cityscapes --name cityscapes --model cycle_gan --pool_size 50 --no_dropout --batchSize 4 --gpu_ids 0,1,2,3
+python train.py --dataroot ../datasets/cyclegan_download/cityscapes --name cityscapes --model cycle_gan --pool_size 50 --no_dropout --batchSize 4 --gpu_ids 0,1,2,3 --display_freq 100 --update_html_freq 200 --serial_batches
