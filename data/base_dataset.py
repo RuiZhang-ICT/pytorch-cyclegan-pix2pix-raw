@@ -23,10 +23,14 @@ class BaseDataset(data.Dataset):
 
     # rui shuffle data
     def shuffle_dataset(self, seed):
-        random.seed(seed)
-        random.shuffle(self.A_paths)
-        random.seed(seed+1)
-        random.shuffle(self.B_paths)
+        if self.opt.model == 'cycle_gan':
+            random.seed(seed)
+            random.shuffle(self.A_paths)
+            random.seed(seed+1)
+            random.shuffle(self.B_paths)
+        elif self.opt.model == 'pix2pix':
+            random.seed(seed)
+            random.shuffle(self.AB_paths)
     # rui
 
 
